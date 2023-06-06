@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
+import Script from 'next/script';
 
 export default function Home() {
   return (
@@ -8,14 +9,18 @@ export default function Home() {
       <Head>
         <title>Next.js Starter!</title>
         <link rel="icon" href="/favicon.ico" />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SLPE8JTEJ2"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments)}
-          gtag('js', new Date());
+        <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=G-SLPE8JTEJ2`} />
 
-          gtag('config', 'G-SLPE8JTEJ2');
-        </script>
+        <Script strategy="lazyOnload">
+          {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-SLPE8JTEJ2', {
+                    page_path: window.location.pathname,
+                    });
+                `}
+        </Script>
       </Head>
 
       <main>
